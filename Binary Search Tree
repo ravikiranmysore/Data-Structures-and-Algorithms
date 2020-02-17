@@ -1,0 +1,138 @@
+/*
+ * BINARY TREE( NOT BINARY SEARCH TREE(BST) )
+ * A tree whose nodes can have at most two childeren is called Binary Tree.
+ * As there can only be two children of a node we call them left and right child.
+ * 
+ * Types of Binary Tree:
+ * 1.Full Binary Tree : Every node must have two childeren, except the lead nodes.
+ * 2.Incomplete Binary Tree : Every node must have two childerens in all levels except second last
+ *   level and should be filled from left to right.
+ * 3. Complete Binary Tree : Every node must have two childerens in all the levels(every level should be 2^L, L = Level)
+ * 4. Left Skewed Binary Tree : Only Left Children
+ * 5. Right Skewed Binary Tree : Only Right Children.
+ * 
+#include<iostream>  
+using namespace std; 
+
+char tree[10]; 
+void root(char key) 
+{ 
+    if(tree[0] != '\0') 
+        cout << "Tree already had root"; 
+    else
+        tree[0] = key; 
+} 
+  
+void set_left(char key, int parent) 
+{  
+    if(tree[parent] == '\0') 
+        cout << "\nCan't set child at" 
+             << (parent * 2) + 1  
+             << " , no parent found(LEFT)"; 
+    else
+        tree[(parent * 2) +1] = key; 
+} 
+  
+void set_right(char key, int parent) 
+{ 
+    if(tree[parent] == '\0') 
+        cout << "\nCan't set child at" 
+             << (parent * 2) + 2 
+             << " , no parent found(RIGHT)"; 
+    else
+        tree[(parent * 2) + 2 ] = key; 
+} 
+  
+void print_tree() 
+{ 
+    cout << "\n"; 
+    for(int i = 0; i < 10; i++) 
+    { 
+        if(tree[i] != '\0') 
+            cout << tree[i]; 
+        else
+            cout << "-"; 
+    } 
+    cout << endl;
+} 
+  
+// Driver Code 
+int main() 
+{ 
+    root('A'); 
+    set_left('B',0); 
+    set_right('C',0); 
+    set_left('D',1); 
+    set_right('E',1); 
+    set_right('F',2); 
+    print_tree(); 
+    return 0; 
+}  
+*/
+// IF array starts from 1 then use : 
+
+#include<iostream>  
+using namespace std; 
+
+char tree[10]; 
+void root(char key) 
+{ 
+    if(tree[1] != '\0')  // Note here: array is starting from 1 not 0.
+        cout << "Tree already had root"; 
+    else
+        tree[1] = key; // Note here: array is starting from 1 not 0.
+} 
+  
+void set_left(char key, int parent) 
+{  
+    if(tree[parent] == '\0') 
+        cout << "\nCan't set child at" 
+             << (parent * 2) + 1  
+             << " , no parent found(LEFT)"; 
+    else
+        tree[(parent * 2) ] = key; // here tree[(parent * 2) + 1 ] = key; , If root is 1
+} 
+  
+void set_right(char key, int parent) 
+{ 
+    if(tree[parent] == '\0') 
+        cout << "\nCan't set child at" 
+             << (parent * 2) + 2 
+             << " , no parent found(RIGHT)"; 
+    else
+        tree[(parent * 2) + 1 ] = key;  // here tree[(parent * 2) + 2 ] = key; , If root is 1
+} 
+  
+void print_tree() 
+{ 
+    cout << "\n"; 
+    for(int i = 0; i < 10; i++) 
+    { 
+        if(tree[i] != '\0') 
+            cout << tree[i]; 
+        else
+            cout << "-"; 
+    } 
+    cout << endl;
+} 
+  
+int main() 
+{ 
+    /* 
+    root('A'); 
+    set_left('B',0); 
+    set_right('C',0); 
+    set_left('D',1); 
+    set_right('E',1); 
+    set_right('F',2); 
+    */
+    root('A'); 
+    set_left('B',1); // Note here: array is starting from 1 not 0.
+    set_right('C',1); 
+    set_left('D',2); 
+    set_right('E',2); 
+    set_right('F',3); 
+    print_tree(); 
+    return 0; 
+}  
+ 
