@@ -1,0 +1,133 @@
+#include<iostream>
+using namespace std;
+
+/*
+
+"Binary search needs a sorted array. it doesnt work for unsorted array"
+checks if the value is in left or right side, 
+comparing when it's lesser or bigger than the central item.
+*/
+int BinarySearch(int a[], int n, int key)
+{
+	int s = 0, e = n - 1;
+	int mid;
+
+	while (s <= e)
+	{
+		mid = (s + e) / 2; // First calculate Mid
+
+		if (a[mid] == key)
+		{
+			return mid; //if mid is equal then thats the key
+		}
+		else if (a[mid] > key)
+		{
+			e = mid - 1; // if mid is more then key, then shift the end to mid -1.
+		}
+		else
+		{
+			s = mid + 1; // else shift the starting point to mid + 1.
+		}
+	}
+	return -1;
+
+}
+int FirstBoundOccurance(int a[], int n, int key)
+{
+	int s = 0, e = n - 1;
+	int mid;
+
+	int ans = -1;
+
+	while (s <= e)
+	{
+		mid = (s + e) / 2; // First calculate Mid
+
+		if (a[mid] == key)
+		{
+			ans = mid;
+			e = mid -1; //if mid is equal then thats the key
+		}
+		else if (a[mid] > key)
+		{
+			e = mid - 1; // if mid is more then key, then shift the end to mid -1.
+		}
+		else
+		{
+			s = mid + 1; // else shift the starting point to mid + 1.
+		}
+	}
+	return ans;
+
+}
+
+int UpperBoundOccurance(int a[], int n, int key)
+{
+	int s = 0, e = n - 1;
+	int mid;
+
+	int ans = -1;
+
+	while (s <= e)
+	{
+		mid = (s + e) / 2; // First calculate Mid
+
+		if (a[mid] == key)
+		{
+			ans = mid;
+			s = mid + 1; //if mid is equal then thats the key
+		}
+		else if (a[mid] > key)
+		{
+
+			e = mid - 1; // if mid is more then key, then shift the end to mid -1.
+		}
+		else
+		{
+			s = mid + 1; // else shift the starting point to mid + 1.
+		}
+	}
+	return ans;
+
+}
+int fiby(int n)
+{
+	if (n == 0)
+		return 1;
+	if (n == 1)
+		return 1;
+    if (n > 1)	
+		int result;
+		int result = n * fiby(n - 1);
+	return result;
+}
+
+int main()
+{
+	int a[] = { 1,2,5,9,12,74,89 };
+	int n = sizeof(a) / sizeof(int);
+	int key;
+	cin >> key;
+
+	//cout << "Fib of " << key << " is : " << fiby(key) << endl;
+
+	int searchIndex = BinarySearch(a, n, key);
+
+	if (searchIndex == -1)
+		cout << key << " is not present" << endl;
+	else
+		cout << key << " is present at " << searchIndex << endl;
+
+	int a1[] = { 1,2,2,2,2,4,4 };
+	int n1 = 7;
+	int key1 = 2;
+	int fbo = FirstBoundOccurance(a1, n1, 2);
+	cout << "F.B.O of 2 is : " << fbo << endl;
+	int Ubo = UpperBoundOccurance(a1, n1, 2);
+	cout << "U.B.O of 2 is : " << Ubo << endl;
+
+
+
+	getchar();
+	return(0);
+}
