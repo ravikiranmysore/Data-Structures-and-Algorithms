@@ -44,7 +44,6 @@ void newInsertSort(int a[], int n)
 	}
 }
 
-
 void RaviMethod(int a[], int n)
 {
 	for (int i = 0; i < n - 1; i++)
@@ -58,7 +57,6 @@ void RaviMethod(int a[], int n)
 			a[prev] = temp;
 			prev;
 		}
-
 	}
 }
 
@@ -115,7 +113,7 @@ int partition(int *a, int s, int e)
 	int i = s - 1;
 	int j = s;
 	int pivot = a[e];
-	for (;j<e;j++)
+	for (; j < e; j++)
 	{
 		if (a[j] <= pivot)
 		{
@@ -129,7 +127,7 @@ int partition(int *a, int s, int e)
 
 void quicksort(int *a, int s, int e)
 {
-	if (s >= e) 
+	if (s >= e)
 		return;
 
 	int p = partition(a, s, e);
@@ -188,7 +186,7 @@ void CountingSort2(int arr[], int n, int max)
 		}
 	}
 
-	for (i = 0; i< n; i++)
+	for (i = 0; i < n; i++)
 	{
 		count[arr[i]] = count[arr[i]] + 1;
 	}
@@ -208,7 +206,6 @@ void printArray(int arr[], int size)
 		cout << arr[i] << " ";
 	cout << endl;
 }
-
 
 void BubbleSort(int a[], int n)
 {
@@ -234,7 +231,7 @@ void SelectionSort(int a[], int n)
 		{
 			if (a[j] < a[min_inx])
 				min_inx = j;
-			swap( a[i], a[min_inx]);
+			swap(a[i], a[min_inx]);
 		}
 		//swap(a[min_inx], a[i]);
 	}
@@ -288,30 +285,29 @@ int shellSort(int arr[], int n)
 	return 0;
 }
 
-
 int main()
 {
 	int a[] = { 238,4, -2,7,12,5,1,97,3 };
 	int n = sizeof(a) / sizeof(int);
 
 	BubbleSort(a, n);
-	cout << "01.Bubble sort : " ;
+	cout << "01.Bubble sort : ";
 	printArray(a, n);
 
 	SelectionSort(a, n);
-	cout << "02.Selection sort : " ;
+	cout << "02.Selection sort : ";
 	printArray(a, n);
 
 	InsertionSort(a, n);
-	cout << "03.Insertion sort : " ;
+	cout << "03.Insertion sort : ";
 	printArray(a, n);
 
 	newInsertSort(a, n);
-	cout << "3.1 : New insertion sort :" ;
+	cout << "3.1 : New insertion sort :";
 	printArray(a, n);
 
 	RaviMethod(a, n);
-	cout << "3.2 : my method - insertion sort :" ;
+	cout << "3.2 : my method - insertion sort :";
 	printArray(a, n);
 
 	MergeSort(a, 0, n - 1);
