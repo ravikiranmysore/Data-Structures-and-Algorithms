@@ -1,0 +1,135 @@
+// Trie : is to search text in tree, if it exists, like in dictionary
+/*
+A trie is a tree-like data structure whose nodes store the letters of an alphabet. 
+By structuring the nodes in a particular way, words and strings can be retrieved from 
+the structure by traversing down a branch path of the tree
+*/
+
+#include <iostream>
+#include <string>
+#include<vector>
+using namespace std;
+
+const int ALPHABET_SIZE = 26;
+const int CASE = 'a';
+
+struct Node
+{
+    Node* parent_ = nullptr;
+    Node* children_[ALPHABET_SIZE] = {};
+    int _occurance = 0;
+};
+
+void inserterNode(Node *trietree,const char * word)
+{
+    Node* currentNode = trietree;
+    while(*word != '\0')
+    {
+        if(currentNode->children_[*word - CASE] == nullptr)
+        {
+            currentNode->children_[*word - CASE] = new Node();
+            currentNode->children_[*word - CASE]->parent_ = currentNode;
+        }
+        currentNode = currentNode->children_[*word - CASE];
+        ++word;
+    }
+    ++currentNode->_occurance;
+}
+
+Node* SearchNode(Node *trietree,const char *word)
+{
+    while(*word != '\0')
+    {
+        if(trietree->children_[*word - CASE]!= nullptr)
+        {
+            trietree = trietree->children_[*word - CASE];
+            ++word;
+        }
+        else
+        {
+            return nullptr;
+        }
+    }
+    return (trietree->_occurance != 0) ? trietree : nullptr;
+}
+
+
+void DeleteNode(Node *trietree, const char *word)
+{
+    Node* currentNode = SearchNode(trietree, word);
+    
+    if(currentNode != nullptr)
+    {
+        --currentNode->_occurance;
+        Node* parent = nullptr;
+        bool isLeaf = true;
+        
+        for(int i = 0; i < ALPHABET_SIZE; ++i)
+        {
+            if(currentNode->children_[i] != nullptr)
+            {
+                isLeaf = false;
+                break;
+            }
+        }
+        
+        while(currentNode->parent_ != nullptr && isLeaf && currentNode->_occurance == 0)
+        {
+            parent = currentNode->parent_;
+            for(int i =0;i < ALPHABET_SIZE;++i)
+            {
+                if(parent->children_[i] == currentNode)
+                {
+                    parent->children_[i] = nullptr;
+                    delete currentNode;
+                    currentNode = parent;
+                }
+                else if (parent->children_[i] != nullptr)
+                {
+                    isLeaf = false;
+                    break;
+                }
+            }
+        }
+    }
+}
+
+void PreOrderPrint(Node *trietree, vector<char> word)
+{
+    if(trietree->_occurance > 0)
+    {
+        for(auto it = word.begin(); it != word.end();++it)
+        {
+            cout << *it;
+        }
+        cout << " " << trietree->_occurance<<endl;
+    }
+    for(int i = 0; i < ALPHABET_SIZE;++i)
+    {
+        if(trietree->children_[i] != nullptr)
+        {
+            word.push_back(CASE + i);
+            PreOrderPrint(trietree->children_[i],word );
+            word.pop_back();
+        }
+    }
+}
+
+int main()
+{
+    vector<char> word;
+    Node* trieTree = new Node();
+    
+    inserterNode(trieTree, "abba");
+    inserterNode(trieTree, "abs");
+    inserterNode(trieTree, "cat");
+    inserterNode(trieTree, "catch");
+    inserterNode(trieTree, "abba");
+    inserterNode(trieTree, "abba");
+    
+    DeleteNode(trieTree, "abba");
+    //DeleteNode(trieTree, "cat");
+    
+    PreOrderPrint(trieTree, word);
+    return 0;
+}
